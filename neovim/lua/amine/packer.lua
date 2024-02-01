@@ -41,6 +41,7 @@ return require('packer').startup(function(use)
   -- Jenkinsfile
   use({'ckipp01/nvim-jenkinsfile-linter', requires = { "nvim-lua/plenary.nvim" }, ft = {'Jenkinsfile'} })
 
+
   use {
   'vonheikemen/lsp-zero.nvim',
   branch = 'v2.x',
@@ -55,12 +56,26 @@ return require('packer').startup(function(use)
     {'hrsh7th/cmp-nvim-lsp'}, -- required
     {'l3mon4d3/luasnip'},     -- required
   }
+  }
 
+  -- AI Stuff
+  -- Copilot
+    use('github/copilot.vim')
 
-
-
-
-}
-
+  -- chatGPT
+  use({
+      "jackMort/ChatGPT.nvim",
+      config = function()
+          require("chatgpt").setup({
+              api_key_cmd = "gpg --decrypt " .. vim.fn.expand("$HOME")  .. "/secret/chatgpt"
+          })
+      end,
+      requires = {
+          "MunifTanjim/nui.nvim",
+          "nvim-lua/plenary.nvim",
+          "folke/trouble.nvim",
+          "nvim-telescope/telescope.nvim"
+      }
+  })
 
 end)
