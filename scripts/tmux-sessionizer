@@ -1,0 +1,113 @@
+#!/usr/bin/env zsh
+#
+# fail the script if any command fails
+set -e
+
+DEFAULT_PYTHON_VERSION="3.12.0"
+TOP_PANE_SIZE=55
+WORKSPACE=~/work/code
+
+# functions
+send-command() {
+    # check if the number of arguments is 3
+    if [ $# -ne 3 ]; then
+        echo "send-command requires 3 arguments"
+        exit 1
+    fi
+    command=$1
+    session=$2
+    pane=$3
+
+    tmux send-keys -t ${session}:1.${pane} "$command" C-m
+}
+
+set-up-session() {
+    # check if the number of arguments is 2
+    if [ $# -ne 2 ]; then
+        echo "set-up-session requires 2 arguments"
+        exit 1
+    fi
+    dir=$1
+    dir_name=$2
+
+    echo "tmux session $dir_name does not exist, creating new session for $dir_name"
+    tmux new-session -d -s $dir_name
+
+    has_python_files=false
+
+    # check if there are python files in within the directory
+    if [ -n "$(find $dir -name '*.py' -print -quit)" ]; then
+        has_python_files=true
+        if [ -z $(pyenv virtualenvs | awk '{print $1}' | grep "^${dir_name}\$") ]; then
+            echo "Creating a new virtualenv for the project $dir_name"
+            pyenv virtualenv ${DEFAULT_PYTHON_VERSION} $dir_name
+        fi
+    fi
+
+    # Split the new session's window into two panes
+    tmux split-window -t ${dir_name}
+    tmux resize-pane -t ${dir_name}:1.0 -y $TOP_PANE_SIZE
+
+    # activate virtual environment and start nvim
+    send-command "cd $dir" $dir_name 0
+    send-command "cd $dir" $dir_name 1
+    send-command "clear" $dir_name 0
+    send-command "clear" $dir_name 1
+    if [ $has_python_files = true ]; then
+        send-command "pyenv activate $dir_name" $dir_name 0
+        send-command "pyenv activate $dir_name" $dir_name 1
+    fi
+
+    send-command "nvim ." $dir_name 0
+
+}
+
+attach-to-session() {
+    # check if the number of arguments is 1
+    if [ $# -ne 1 ]; then
+        echo "attach-to-session requires 1 argument"
+        exit 1
+    fi
+    dir_name=$1
+
+    if [[ -n "$TMUX" ]]; then
+        echo "We are already inside tmux session"
+        echo "Switching to $dir_name"
+        tmux switch-client -t $dir_name
+    else
+        echo "We are not inside a tmux session"
+        echo "attaching to $dir_name"
+        tmux attach-session -t $dir_name
+    fi
+}
+#
+
+selected=$(find ~/work/code ~/dotfiles -mindepth 1 -maxdepth 1 -type d | fzf)
+
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+echo "Selected project: $selected"
+
+# Name of the directory
+selected_name=$(basename "$selected" | tr . _)
+echo "tmux session name: $selected"
+
+# Check running tmux sessions
+tmux_running=$(pgrep tmux)
+
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    echo "tmux is not running, creating new session for $selected"
+    set-up-session $selected $selected_name
+    attach-to-session $selected_name
+    exit 0
+fi
+
+if ! tmux has-session -t=$selected_name 2> /dev/null; then
+    echo "tmux session $selected_name does not exist, creating new session for $selected"
+    set-up-session $selected $selected_name
+    attach-to-session $selected_name
+    exit 0
+fi
+
