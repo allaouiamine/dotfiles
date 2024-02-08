@@ -41,6 +41,30 @@ return require('packer').startup(function(use)
   -- Jenkinsfile
   use({'ckipp01/nvim-jenkinsfile-linter', requires = { "nvim-lua/plenary.nvim" }, ft = {'Jenkinsfile'} })
 
+  -- Obsidian
+  use({
+  "epwalsh/obsidian.nvim",
+  tag = "*",  -- recommended, use latest release instead of latest commit
+  requires = {
+    -- Required.
+    "nvim-lua/plenary.nvim",
+
+    -- see below for full list of optional dependencies 👇
+  },
+  config = function()
+    require("obsidian").setup({
+      workspaces = {
+        {
+          name = "amine-notes",
+          path = "~/work/code/obsidian/amine-notes",
+        },
+      },
+
+      -- see below for full list of options 👇
+    })
+  end,
+})
+
 
   use {
   'vonheikemen/lsp-zero.nvim',

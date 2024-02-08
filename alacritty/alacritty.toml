@@ -28,8 +28,6 @@ bright_foreground = "#ffffff"
 bindings = [
     {key = "Left", mods = "Alt", chars = "\u001B[1;3D"},
     {key = "Right", mods = "Alt", chars = "\u001B[1;3C"},
-    {key = "/", mods = "Command", chars = "\u0001%"},
-    {key = '\', mods = "Command", chars = "\u0001\u0022"},
 ]
 
 [mouse]
