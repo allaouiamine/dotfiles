@@ -34,6 +34,9 @@ return require('packer').startup(function(use)
   use ('simrat39/rust-tools.nvim')
   use ('rust-lang/rust.vim')
 
+  -- python tools
+  use ('jose-elias-alvarez/null-ls.nvim')
+
   -- Debugging
   use ('nvim-lua/plenary.nvim')
   use ('mfussenegger/nvim-dap')
@@ -41,44 +44,36 @@ return require('packer').startup(function(use)
   -- Jenkinsfile
   use({'ckipp01/nvim-jenkinsfile-linter', requires = { "nvim-lua/plenary.nvim" }, ft = {'Jenkinsfile'} })
 
-  -- Obsidian
-  use({
-  "epwalsh/obsidian.nvim",
-  tag = "*",  -- recommended, use latest release instead of latest commit
-  requires = {
-    -- Required.
-    "nvim-lua/plenary.nvim",
 
-    -- see below for full list of optional dependencies 👇
-  },
-  config = function()
-    require("obsidian").setup({
-      workspaces = {
-        {
-          name = "amine-notes",
-          path = "~/work/code/obsidian/amine-notes",
-        },
-      },
-
-      -- see below for full list of options 👇
-    })
-  end,
-})
+ use({'folke/noice.nvim',
+    requires = {
+        "MunifTanjim/nui.nvim",
+        "rcarriga/nvim-notify",
+    }
+ })
 
 
   use {
   'vonheikemen/lsp-zero.nvim',
   branch = 'v2.x',
   requires = {
-    -- lsp support
-    {'neovim/nvim-lspconfig'},             -- required
-    {'williamboman/mason.nvim'},           -- optional
-    {'williamboman/mason-lspconfig.nvim'}, -- optional
+      		  -- LSP Support
+		  {'neovim/nvim-lspconfig'},
+		  {'williamboman/mason.nvim'},
+		  {'williamboman/mason-lspconfig.nvim'},
+          {'WhoIsSethDaniel/mason-tool-installer.nvim'},
 
-    -- autocompletion
-    {'hrsh7th/nvim-cmp'},     -- required
-    {'hrsh7th/cmp-nvim-lsp'}, -- required
-    {'l3mon4d3/luasnip'},     -- required
+		  -- Autocompletion
+		  {'hrsh7th/nvim-cmp'},
+		  {'hrsh7th/cmp-buffer'},
+		  {'hrsh7th/cmp-path'},
+		  {'saadparwaiz1/cmp_luasnip'},
+		  {'hrsh7th/cmp-nvim-lsp'},
+		  {'hrsh7th/cmp-nvim-lua'},
+
+		  -- Snippets
+		  {'L3MON4D3/LuaSnip'},
+		  {'rafamadriz/friendly-snippets'},
   }
   }
 
@@ -89,11 +84,6 @@ return require('packer').startup(function(use)
   -- chatGPT
   use({
       "jackMort/ChatGPT.nvim",
-      config = function()
-          require("chatgpt").setup({
-              api_key_cmd = "gpg --decrypt " .. vim.fn.expand("$HOME")  .. "/secret/chatgpt"
-          })
-      end,
       requires = {
           "MunifTanjim/nui.nvim",
           "nvim-lua/plenary.nvim",
