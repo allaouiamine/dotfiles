@@ -41,8 +41,11 @@ return require('packer').startup(function(use)
   use ('nvim-lua/plenary.nvim')
   use ('mfussenegger/nvim-dap')
 
+  -- tmux integration
+  use ('christoomey/vim-tmux-navigator')
+
   -- Jenkinsfile
-  use({'ckipp01/nvim-jenkinsfile-linter', requires = { "nvim-lua/plenary.nvim" }, ft = {'Jenkinsfile'} })
+  --use({'ckipp01/nvim-jenkinsfile-linter', requires = { "nvim-lua/plenary.nvim" }, ft = {'Jenkinsfile'} })
 
 
  use({'folke/noice.nvim',

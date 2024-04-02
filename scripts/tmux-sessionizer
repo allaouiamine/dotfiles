@@ -3,7 +3,7 @@
 # fail the script if any command fails
 set -e
 
-DEFAULT_PYTHON_VERSION="3.12.0"
+DEFAULT_PYTHON_VERSION="3.10.9"
 TOP_PANE_SIZE=55
 WORKSPACE=~/work/code
 
@@ -44,14 +44,14 @@ set-up-session() {
         fi
     fi
 
+    send-command "cd $dir" $dir_name 0
+    send-command "clear\n" $dir_name 0
     # Split the new session's window into two panes
     tmux split-window -t ${dir_name}
     #tmux resize-pane -t ${dir_name}:1.0 -y $TOP_PANE_SIZE
 
     # activate virtual environment and start nvim
-    send-command "cd $dir" $dir_name 0
     send-command "cd $dir" $dir_name 1
-    send-command "clear" $dir_name 0
     send-command "clear" $dir_name 1
     if [ $has_python_files = true ]; then
         send-command "pyenv activate $dir_name" $dir_name 0
