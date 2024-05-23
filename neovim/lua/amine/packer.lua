@@ -80,6 +80,10 @@ return require('packer').startup(function(use)
   }
   }
 
+use {
+    'ruifm/gitlinker.nvim',
+    requires = 'nvim-lua/plenary.nvim',
+}
   -- AI Stuff
   -- Copilot
   --use('github/copilot.vim')
