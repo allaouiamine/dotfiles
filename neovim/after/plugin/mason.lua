@@ -6,7 +6,6 @@ require('mason-lspconfig').setup({
   'rust_analyzer',
   'lua_ls',
   'pyright',
-  'groovyls',
   'terraformls',
   },
   handlers = {

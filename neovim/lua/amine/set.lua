@@ -30,3 +30,6 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "120"
 
+vim.wo.wrap = true
+vim.wo.linebreak = true
+vim.wo.list = false

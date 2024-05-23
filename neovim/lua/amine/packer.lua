@@ -82,17 +82,18 @@ return require('packer').startup(function(use)
 
   -- AI Stuff
   -- Copilot
-    use('github/copilot.vim')
+  --use('github/copilot.vim')
 
   -- chatGPT
-  use({
-      "jackMort/ChatGPT.nvim",
-      requires = {
-          "MunifTanjim/nui.nvim",
-          "nvim-lua/plenary.nvim",
-          "folke/trouble.nvim",
-          "nvim-telescope/telescope.nvim"
-      }
-  })
+  --use({
+  --    "jackMort/ChatGPT.nvim",
+  --    requires = {
+  --        "MunifTanjim/nui.nvim",
+  --        "nvim-lua/plenary.nvim",
+  --        "folke/trouble.nvim",
+  --        "nvim-telescope/telescope.nvim"
+  --    }
+  --})
+  use({"David-Kunz/gen.nvim"})
 
 end)
