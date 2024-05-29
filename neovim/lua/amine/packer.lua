@@ -86,7 +86,7 @@ use {
 }
   -- AI Stuff
   -- Copilot
-  --use('github/copilot.vim')
+  use('github/copilot.vim')
 
   -- chatGPT
   --use({
@@ -99,5 +99,12 @@ use {
   --    }
   --})
   use({"David-Kunz/gen.nvim"})
+  use({
+    "kdheepak/lazygit.nvim",
+    -- optional for floating window border decoration
+    requires = {
+        "nvim-lua/plenary.nvim",
+    },
+    })
 
 end)
