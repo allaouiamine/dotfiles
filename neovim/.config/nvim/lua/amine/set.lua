@@ -33,3 +33,5 @@ vim.opt.colorcolumn = "120"
 vim.wo.wrap = true
 vim.wo.linebreak = true
 vim.wo.list = false
+
+vim.cmd.colorscheme "catppuccin-mocha"
