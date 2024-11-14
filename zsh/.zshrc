@@ -10,7 +10,6 @@ bindkey "^[[1;3C" forward-word
 eval "$(starship init zsh)"
 
 . "$HOME/.cargo/env"
-. "$HOME/.flamegraph"
 . "$HOME/.fzf"
 
 export PYENV_ROOT="$HOME/.pyenv"

@@ -88,7 +88,7 @@ use {
 }
   -- AI Stuff
   -- Copilot
-  use('github/copilot.vim')
+  --use('github/copilot.vim')
 
   -- chatGPT
   --use({
