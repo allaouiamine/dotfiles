@@ -8,3 +8,10 @@ bindkey "^[[1;3C" forward-word
 # use starship
 eval "$(starship init zsh)"
 
+. "$HOME/.cargo/env"
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+eval "$(pyenv virtualenv-init -)"
