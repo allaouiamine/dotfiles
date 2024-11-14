@@ -1,0 +1,6 @@
+1password
+1password-cli
+tuxedo-backlight-control-git
+tuxedo-control-center-bin
+tuxedo-drivers-dkms
+tuxedo-yt6801-dkms-git
