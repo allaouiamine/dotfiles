@@ -4,7 +4,7 @@ function ColorMyPencils()
 end
 
 require("notify").setup({
-    background_color = "#1a1b26",
+    background_colour = "#1a1b26",
 })
 
 ColorMyPencils()
