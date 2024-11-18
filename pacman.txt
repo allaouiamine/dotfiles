@@ -10,9 +10,13 @@ tmux
 ttf-sourcecodepro-nerd
 wget
 zsh
-hyprland
-hyprpaper
-waybar
 fd
 fzf
 wofi
+xclip
+zellij
+
+# wayland
+hyprland
+hyprpaper
+waybar

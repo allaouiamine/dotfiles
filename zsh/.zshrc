@@ -22,6 +22,14 @@ eval "$(pyenv virtualenv-init -)"
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
+# use autocompletion
+autoload -Uz compinit
+compinit
+
+source "${HOME}/.zsh_kubectl"
+
+
+alias kc=kubectl
 
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
