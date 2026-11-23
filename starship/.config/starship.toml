@@ -1,8 +1,14 @@
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
+palette = "catppuccin_mocha"
+
 # Inserts a blank line between shell prompts
 add_newline = false
+
+# Nebo is a ~330k-file monorepo; git status there takes ~0.6s warm and can
+# exceed 3s on a cold cache (after sleep/reboot, big pulls, fsmonitor restart).
+command_timeout = 5000
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
@@ -71,6 +77,9 @@ symbol = " "
 [git_branch]
 symbol = " "
 
+[git_status]
+ignore_submodules = true
+
 [git_commit]
 tag_symbol = '  '
 
@@ -117,6 +126,8 @@ symbol = "󰆥 "
 symbol = " "
 
 [nodejs]
+# Nebo has a root package.json, which made this run `node --version` (~700ms) on every prompt.
+disabled = true
 symbol = " "
 
 [ocaml]
